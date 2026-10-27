@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:title" content="¡Nos Casamos! | Alexander & Valery">
+    <meta property="og:description" content="05 de Diciembre 2026. Acompáñanos en este día tan especial.">
+    <meta property="og:image" content="TU_IMAGEN_DE_PORTADA.jpg">
+    
+    <title>Invitación | Alexander & Valery</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fuentes: 'Great Vibes' para nombres, 'Cormorant Garamond' para títulos y 'Montserrat' para textos -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* PALETA DE COLORES OTOÑO */
+            --cafe-claro: #B88C64;
+            --borgona: #7A3045;
+            --terracota: #B75D3E;
+            --mostaza: #C7943D;
+            --verde-oliva: #556B2F;
+            --verde-oscuro: #2F4F2F;
+            
+            --bg-crema: #FAF7F2; /* Fondo beige cálido estilo papel */
+            --color-texto: #3E332B; /* Café muy oscuro para mejor lectura */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-crema);
+            color: var(--color-texto);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .nombres-script {
+            font-family: 'Great Vibes', cursive;
+            color: var(--terracota);
+            font-weight: normal;
+        }
+
+        /* --- PANTALLA DE INICIO (SOBRE) --- */
+        #pantalla-apertura {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: var(--verde-oscuro); /* Verde oscuro de la paleta */
+            color: var(--bg-crema);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            cursor: pointer;
+        }
+
+        #pantalla-apertura h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            color: var(--bg-crema);
+        }
+
+        .btn-abrir {
+            background-color: var(--terracota);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: latido 2s infinite;
+        }
+
+        @keyframes latido {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- BOTÓN DE MÚSICA FLOTANTE --- */
+        #music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--mostaza); /* Mostaza cálido */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        /* --- SECCIÓN HERO --- */
+        .hero {
+            height: 100vh;
+            /* Aquí puedes poner de fondo las hojas de otoño */
+            background-color: var(--bg-crema);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border: 15px solid white; /* Efecto marco */
+            box-sizing: border-box;
+        }
+
+        .hero h4 {
+            letter-spacing: 4px;
+            color: var(--verde-oliva);
+            font-size: 1.2rem;
+        }
+
+        .hero h1 { 
+            font-size: 5rem; 
+            margin: 10px 0; 
+            line-height: 1.1;
+        }
+
+        .hero p { 
+            font-size: 1.1rem; 
+            letter-spacing: 2px; 
+            margin-top: 20px;
+            color: var(--borgona);
+        }
+
+        /* --- CONTADOR --- */
+        .seccion { padding: 60px 20px; text-align: center; }
+        .seccion-oscura { background-color: var(--verde-oliva); color: var(--bg-crema); }
+        
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .timer-box {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--mostaza);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 65px;
+        }
+        .timer-box span { font-size: 2.2rem; font-family: 'Cormorant Garamond', serif; display: block; }
+        .timer-box small { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- DETALLES E ITINERARIO --- */
+        .tarjeta-evento {
+            background: white;
+            padding: 40px 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(184, 140, 100, 0.15); /* Sombra tono café claro */
+            border-radius: 15px;
+            border-top: 5px solid var(--terracota);
+        }
+        .tarjeta-evento h3 { font-size: 2.2rem; color: var(--borgona); margin-bottom: 5px;}
+        .tarjeta-evento h4 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; margin-top: 0; color: var(--cafe-claro); }
+        .btn-waze {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: var(--verde-oscuro);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* --- RSVP (CONFIRMACIÓN) --- */
+        .formulario-rsvp {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--cafe-claro);
+        }
+        .formulario-rsvp label { display: block; margin-top: 15px; font-weight: 600; font-size: 0.9rem; color: var(--borgona); }
+        .formulario-rsvp input, .formulario-rsvp select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid var(--cafe-claro);
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-crema);
+        }
+        .btn-enviar {
+            width: 100%;
+            background-color: var(--terracota);
+            color: white;
+            border: none;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: var(--verde-oscuro);
+            color: var(--bg-crema);
+            padding: 40px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="musica-fondo" loop>
+        <source src="heaven.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 1. PANTALLA DE APERTURA (EL "SOBRE") -->
+    <div id="pantalla-apertura" onclick="abrirInvitacion()">
+        <p style="letter-spacing: 4px; font-size: 0.9rem; margin-bottom: 0;">NOS CASAMOS</p>
+        <h1 class="nombres-script" style="color: var(--bg-crema);">Alexander & Valery</h1>
+        <button class="btn-abrir">ABRIR INVITACIÓN</button>
+    </div>
+
+    <button id="music-btn" onclick="toggleMusica()">🎵</button>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero">
+        <h4>¡NOS CASAMOS!</h4>
+        <h1 class="nombres-script">Alexander <br> <span style="font-size: 3rem; color: var(--cafe-claro);">&</span> <br> Valery</h1>
+        <p style="color: var(--verde-oscuro); font-weight: 600;">QUEREMOS COMPARTIR CONTIGO<br>LA FELICIDAD DE NUESTRA UNIÓN</p>
+    </section>
+
+    <!-- 3. CONTADOR REGRESIVO -->
+    <section class="seccion seccion-oscura">
+        <h2 style="color: var(--bg-crema);">Faltan...</h2>
+        <div style="font-size: 1.2rem; letter-spacing: 3px; font-weight: 300;">05 DE DICIEMBRE 2026</div>
+        <div class="timer-container">
+            <div class="timer-box"><span id="dias">00</span><small>Días</small></div>
+            <div class="timer-box"><span id="horas">00</span><small>Hrs</small></div>
+            <div class="timer-box"><span id="min">00</span><small>Min</small></div>
+            <div class="timer-box"><span id="seg">00</span><small>Seg</small></div>
+        </div>
+    </section>
+
+    <!-- 4. DÓNDE Y CUÁNDO -->
+    <section class="seccion">
+        <h2 style="color: var(--verde-oscuro); font-size: 2.5rem;">Día y Lugar</h2>
+        
+        <div class="tarjeta-evento">
+            <h3>La Cabaña</h3>
+            <h4>Raxanep, Joyabaj, El Quiché</h4>
+            <div style="margin: 20px 0; border-top: 1px solid var(--cafe-claro); border-bottom: 1px solid var(--cafe-claro); padding: 15px 0;">
+                <p style="margin: 5px 0;"><strong>Día:</strong> 05 de Diciembre 2026</p>
+                <p style="margin: 5px 0;"><strong>Hora:</strong> 5:30 P.M.</p>
+            </div>
+            <a href="URL_DE_WAZE_O_MAPS" target="_blank" class="btn-waze">CÓMO LLEGAR</a>
+        </div>
+    </section>
+
+    <!-- 5. DRESS CODE -->
+    <section class="seccion" style="background-color: white;">
+        <h2 style="color: var(--borgona); font-size: 2.5rem;">Código de Vestimenta</h2>
+        <div style="font-size: 40px; margin-top: 10px;">👗 👔</div>
+        <p style="font-size: 1.2rem; margin-top: 15px; color: var(--verde-oscuro);"><strong>Formal</strong></p>
+        <p style="font-size: 0.9rem; color: var(--cafe-claro);">Reserva el color blanco para la novia</p>
+    </section>
+
+    <!-- 6. RSVP (CONFIRMACIÓN) -->
+    <section class="seccion">
+        <h2 style="color: var(--terracota); font-size: 2.5rem;">Confirmación</h2>
+        <p style="margin-bottom: 30px;">Haga click aquí para confirmar asistencia</p>
+        
+        <div class="formulario-rsvp">
+            <form action="TU_LINK_DE_GOOGLE_APPS_SCRIPT" method="POST" id="rsvp-form">
+                
+                <label>Nombre del Invitado / Familia</label>
+                <input type="text" name="nombre" placeholder="Ej. Familia Pérez" required>
+
+                <label>¿Asistirán?</label>
+                <select name="asistencia" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Si">¡Sí, ahí estaremos!</option>
+                    <option value="No">No podremos asistir</option>
+                </select>
+
+                <label>Pases a confirmar</label>
+                <select name="personas" required>
+                    <option value="" disabled selected>Cantidad de personas</option>
+                    <option value="1">1 Persona</option>
+                    <option value="2">2 Personas</option>
+                    <option value="3">3 Personas</option>
+                    <option value="4">4 Personas</option>
+                    <option value="5">5 Personas</option>
+                </select>
+
+                <button type="submit" class="btn-enviar">ENVIAR CONFIRMACIÓN</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <h2 class="nombres-script" style="margin: 0; font-size: 3rem; color: var(--bg-crema);">A & V</h2>
+        <p style="margin-top: 10px; font-size: 0.9rem; font-family: 'Montserrat', sans-serif;">¡Los esperamos!</p>
+    </footer>
+
+    <script>
+        const audio = document.getElementById("musica-fondo");
+        let musicaSonando = false;
+
+        function abrirInvitacion() {
+            const pantalla = document.getElementById("pantalla-apertura");
+            const btnMusica = document.getElementById("music-btn");
+            
+            pantalla.style.transform = "translateY(-100%)";
+            pantalla.style.opacity = "0";
+            
+            setTimeout(() => {
+                pantalla.style.display = "none";
+            }, 1000);
+
+            audio.play();
+            musicaSonando = true;
+            btnMusica.style.display = "block";
+        }
+
+        function toggleMusica() {
+            const btn = document.getElementById("music-btn");
+            if(musicaSonando) {
+                audio.pause();
+                btn.innerHTML = "🔇";
+                musicaSonando = false;
+            } else {
+                audio.play();
+                btn.innerHTML = "🎵";
+                musicaSonando = true;
+            }
+        }
+
+        // Fecha actualizada al 5 de Diciembre 2026, 5:30 PM
+        const fechaBoda = new Date("Dec 05, 2026 17:30:00").getTime();
+
+        setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = fechaBoda - ahora;
+
+            if(distancia < 0) return;
+
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            document.getElementById("dias").innerHTML = dias < 10 ? "0"+dias : dias;
+            document.getElementById("horas").innerHTML = horas < 10 ? "0"+horas : horas;
+            document.getElementById("min").innerHTML = minutos < 10 ? "0"+minutos : minutos;
+            document.getElementById("seg").innerHTML = segundos < 10 ? "0"+segundos : segundos;
+        }, 1000);
+    </script>
+</body>
+</html>

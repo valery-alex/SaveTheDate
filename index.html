@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Save the Date | Alexander & Valery">
+    <meta property="og:description" content="05 de Diciembre 2026. ¡Reserva la fecha!">
+    <meta property="og:image" content="https://valery-alex.netlify.app/fotogrande.jpeg">
+    <meta property="og:url" content="https://valery-alex.netlify.app/">
+    <meta property="og:type" content="website">
+    <title>Save the Date | Alexander & Valery</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Paleta de Otoño */
+            --cafe-claro: #B88C64;
+            --borgona: #7A3045;
+            --terracota: #B75D3E;
+            --mostaza: #C7943D;
+            --verde-oliva: #556B2F;
+            --verde-oscuro: #2F4F2F;
+            --bg-crema: #FAF7F2;
+            --color-texto: #3E332B;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-crema);
+            color: var(--color-texto);
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* --- PANTALLA DE APERTURA (EL SOBRE) --- */
+        #pantalla-apertura {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            right: 0;
+            bottom: 0;
+            width: 100%; 
+            height: 100vh; /* Respaldo para navegadores antiguos */
+            height: 100dvh; /* NUEVO: Se adapta a la barra de WhatsApp/Safari */
+            background-color: var(--verde-oscuro);
+            color: var(--bg-crema);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            cursor: pointer;
+        }
+
+        #pantalla-apertura h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            color: var(--bg-crema);
+        }
+
+        .btn-abrir {
+            background-color: var(--terracota);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: latido 2s infinite;
+        }
+
+        @keyframes latido {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- BOTÓN DE MÚSICA FLOTANTE --- */
+        #music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--mostaza);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        /* --- CONTENIDO DEL SAVE THE DATE --- */
+        .header {
+            padding: 50px 20px 20px;
+        }
+
+        .header h3 {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 5px;
+            font-size: 1rem;
+            color: var(--verde-oliva);
+            text-transform: uppercase;
+        }
+
+        .nombres-script {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5rem;
+            color: var(--terracota);
+            margin: 10px 0;
+            line-height: 1;
+            font-weight: normal;
+        }
+
+        .fecha {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--borgona);
+            margin-bottom: 40px;
+        }
+
+        /* --- VIDEO --- */
+        .video-container {
+            max-width: 400px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .video-container video {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(122, 48, 69, 0.15);
+            border: 4px solid white;
+            cursor: pointer; /* NUEVO: Indica que se puede tocar */
+        }
+
+        /* --- FOTOS --- */
+        .galeria {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 0 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 140px;
+            transform: rotate(-3deg);
+            border: 1px solid #eaeaea;
+        }
+        
+        .polaroid:nth-child(even) {
+            transform: rotate(4deg);
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+        }
+
+        /* --- CONTADOR --- */
+        .seccion-contador {
+            background-color: var(--verde-oscuro);
+            color: var(--bg-crema);
+            padding: 60px 20px;
+        }
+
+        .seccion-contador h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .timer-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--mostaza);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 65px;
+        }
+
+        .timer-box span { 
+            font-size: 2.2rem; 
+            font-family: 'Cormorant Garamond', serif; 
+            display: block; 
+        }
+
+        .timer-box small { 
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: var(--cafe-claro);
+        }
+
+        .aviso {
+            font-style: italic;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #d1d1d1;
+        }
+
+        /* --- FORMULARIO RSVP --- */
+        .seccion-rsvp {
+            background-color: var(--bg-crema);
+            padding: 60px 20px;
+            color: var(--color-texto);
+        }
+
+        .formulario-boda {
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .formulario-boda input, 
+        .formulario-boda select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--mostaza);
+            background-color: transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--color-texto);
+            box-sizing: border-box;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .formulario-boda input:focus, 
+        .formulario-boda select:focus {
+            outline: none;
+            border-color: var(--terracota);
+            background-color: white;
+        }
+
+        .btn-enviar {
+            background-color: var(--verde-oscuro);
+            color: var(--bg-crema);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            margin-top: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-enviar:hover {
+            transform: scale(1.05);
+            background-color: var(--terracota);
+        }
+
+        /* --- ADAPTACIÓN PARA MÓVILES --- */
+        @media (max-width: 600px) {
+            /* Ajusta el tamaño de la tipografía principal */
+            .nombres-script { font-size: 3rem; }
+            #pantalla-apertura h1 { font-size: 2.5rem; }
+            .fecha { font-size: 1.4rem; }
+            
+            /* Reduce el tamaño de las fotos para que quepan bien */
+            .polaroid { width: 110px; padding: 8px 8px 24px 8px; }
+            .galeria { gap: 10px; }
+
+            /* Ajusta los cuadros del contador para evitar que se salgan de la pantalla */
+            .timer-container { gap: 8px; flex-wrap: wrap; }
+            .timer-box { min-width: 55px; padding: 10px; }
+            .timer-box span { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- REPRODUCTOR DE AUDIO -->
+    <audio id="musica-fondo" loop>
+        <source src="heaven.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- EL SOBRE (PANTALLA INICIAL) -->
+    <div id="pantalla-apertura" onclick="abrirInvitacion()">
+        <p style="letter-spacing: 4px; font-size: 0.9rem; margin-bottom: 0;">SAVE THE DATE</p>
+        <h1 class="nombres-script">Alexander & Valery</h1>
+        <button class="btn-abrir">ABRIR</button>
+    </div>
+
+    <!-- BOTÓN DE MÚSICA FLOTANTE -->
+    <button id="music-btn" onclick="toggleMusica()">🎵</button>
+
+    <!-- CONTENIDO DEL SAVE THE DATE -->
+    <div class="header">
+        <h3>Save the Date</h3>
+        <h1 class="nombres-script">Alexander <br><span style="font-size: 2.5rem; color: var(--cafe-claro);">&</span><br> Valery</h1>
+        <div class="fecha">05 . 12 . 2026</div>
+    </div>
+
+    <div class="video-container">
+        <!-- El video se reproduce automáticamente sin sonido (muted) para no interrumpir la canción -->
+         <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--terracota); margin-bottom: 10px; padding: 0 20px;">
+            Toca el video para verlo en pantalla completa y vive este recuerdo con nosotros...
+        </p>
+        <video id="video-novios" src="video_novios.mp4" loop muted playsinline></video>
+    </div>
+
+    <div class="galeria">
+        <div class="polaroid">
+            <img src="foto1.jpg" alt="Nosotros 1">
+        </div>
+        <div class="polaroid">
+            <img src="foto2.jpg" alt="Nosotros 2">
+        </div>
+    </div>
+
+    <div class="seccion-contador">
+        <h2>Ya casi llega el gran día...</h2>
+        <div class="timer-container">
+            <div class="timer-box"><span id="dias">00</span><small>Días</small></div>
+            <div class="timer-box"><span id="horas">00</span><small>Hrs</small></div>
+            <div class="timer-box"><span id="min">00</span><small>Min</small></div>
+            <div class="timer-box"><span id="seg">00</span><small>Seg</small></div>
+        </div>
+        <div class="aviso">La invitación formal y los detalles del evento serán enviados más adelante.</div>
+    </div>
+
+    <!-- SECCIÓN DE CONFIRMACIÓN (RSVP) -->
+    <div class="seccion-rsvp">
+        <h2 class="nombres-script" style="font-size: 3.5rem; color: var(--terracota); margin-bottom: 10px;">RSVP</h2>
+        
+        <!-- Botón inicial que se oculta al darle click -->
+        <button id="btn-mostrar-form" class="btn-enviar" onclick="mostrarFormulario()">CONFIRMAR ASISTENCIA</button>
+        
+        <!-- Contenedor del formulario oculto por defecto (display: none) -->
+        <div id="contenedor-formulario" style="display: none; margin-top: 30px;">
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 10px;">
+                Nos encantaría contar con tu presencia.
+            </p>
+            <p id="texto-pases" style="font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--mostaza); margin-bottom: 20px;"></p>
+            
+            <!-- FORMULARIO LIMPIO Y CON DISEÑO -->
+            <form name="confirmacion-boda" id="form-boda" class="formulario-boda">
+                
+                <!-- 1. Nombre principal -->
+                <input type="text" name="nombre_principal" id="nombre_principal" placeholder="Tu nombre y apellido" required>
+                
+                <input type="tel" name="whatsapp" placeholder="Tu número de WhatsApp" required>
+                
+                <!-- 2. Asistencia -->
+                <select name="asistencia" id="select-asistencia" required onchange="togglePases()">
+                    <option value="" disabled selected>¿Podrás acompañarnos?</option>
+                    <option value="Si">¡Sí, ahí estaré!</option>
+                    <option value="No">Lo siento mucho, no podré asistir</option>
+                </select>
+
+                <!-- 3. Cantidad de asistentes -->
+                <select name="numero_asistentes" id="select-personas" style="display:none;" onchange="generarCamposNombres()">
+                    <option value="" disabled selected>¿Cuántos asistirán en total?</option>
+                </select>
+
+                <!-- 4. Acompañantes (agrupados en columna para mantener el diseño) -->
+                <div id="contenedor-nombres" style="display: none; width: 100%; display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                    <input type="text" name="persona_2" id="persona_2" placeholder="Nombre del acompañante 1" style="display:none;">
+                    <input type="text" name="persona_3" id="persona_3" placeholder="Nombre del acompañante 2" style="display:none;">
+                    <input type="text" name="persona_4" id="persona_4" placeholder="Nombre del acompañante 3" style="display:none;">
+                    <input type="text" name="persona_5" id="persona_5" placeholder="Nombre del acompañante 4" style="display:none;">
+                </div>
+
+                <button type="submit" id="btn-enviar-submit" class="btn-enviar">ENVIAR CONFIRMACIÓN</button>
+            </form>
+
+            <!-- MENSAJE DE ÉXITO (Oculto por defecto) -->
+            <div id="mensaje-exito" style="display: none; margin-top: 20px; padding: 20px; background-color: var(--verde-oscuro); color: var(--bg-crema); border-radius: 10px;">
+                <h3 class="nombres-script" style="font-size: 2.5rem; color: var(--mostaza); margin: 0 0 10px 0;">¡Gracias por confirmar!</h3>
+                <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin: 0;">Hemos guardado tu respuesta. ¡Nos vemos el 05 de diciembre!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CONTROL DE LA MÚSICA Y EL SOBRE
+        const audio = document.getElementById("musica-fondo");
+        let musicaSonando = false;
+
+        function abrirInvitacion() {
+            const pantalla = document.getElementById("pantalla-apertura");
+            const btnMusica = document.getElementById("music-btn");
+            const video = document.getElementById("video-novios");
+            
+            // Animación de deslizar hacia arriba
+            pantalla.style.transform = "translateY(-100%)";
+            pantalla.style.opacity = "0";
+            
+            setTimeout(() => {
+                pantalla.style.display = "none";
+            }, 1000);
+
+            // Iniciar música de Bryan Adams
+            audio.play();
+            video.play();
+            musicaSonando = true;
+            btnMusica.style.display = "block";
+        }
+
+        function toggleMusica() {
+            const btn = document.getElementById("music-btn");
+            if(musicaSonando) {
+                audio.pause();
+                btn.innerHTML = "🔇";
+                musicaSonando = false;
+            } else {
+                audio.play();
+                btn.innerHTML = "🎵";
+                musicaSonando = true;
+            }
+        }
+
+        // CONTROL DEL CONTADOR (05 de Diciembre 2026)
+        const fechaBoda = new Date("Dec 05, 2026 17:30:00").getTime();
+
+        setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = fechaBoda - ahora;
+
+            if(distancia < 0) return;
+
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            document.getElementById("dias").innerHTML = dias < 10 ? "0"+dias : dias;
+            document.getElementById("horas").innerHTML = horas < 10 ? "0"+horas : horas;
+            document.getElementById("min").innerHTML = minutos < 10 ? "0"+minutos : minutos;
+            document.getElementById("seg").innerHTML = segundos < 10 ? "0"+segundos : segundos;
+        }, 1000);
+
+        const videoActivo = document.getElementById("video-novios");
+
+        videoActivo.addEventListener('click', () => {
+            if (videoActivo.requestFullscreen) {
+                videoActivo.requestFullscreen(); // Android y PC
+            } else if (videoActivo.webkitEnterFullscreen) { 
+                videoActivo.webkitEnterFullscreen(); // iOS / iPhone
+            } else if (videoActivo.webkitRequestFullscreen) { 
+                videoActivo.webkitRequestFullscreen(); // Safari PC
+            }
+        });
+
+        // 1. Función para mostrar el formulario
+        function mostrarFormulario() {
+            document.getElementById('btn-mostrar-form').style.display = 'none';
+            document.getElementById('contenedor-formulario').style.display = 'block';
+        }
+
+        // Variable global para saber cuántos pases tiene
+        let pasesAsignados = 1;
+
+        // 1. Lógica para leer los pases desde el link (ej: ?pases=3)
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            pasesAsignados = parseInt(urlParams.get('pases')) || 2; 
+            
+            const selectPersonas = document.getElementById("select-personas");
+            const textoPases = document.getElementById("texto-pases");
+
+            textoPases.innerHTML = `Tienes reservado(s) ${pasesAsignados} pase(s) para este evento.`;
+
+            // Crea las opciones del dropdown
+            for (let i = 1; i <= pasesAsignados; i++) {
+                let option = document.createElement("option");
+                option.value = i;
+                option.text = i === 1 ? "Solo yo" : `${i} personas en total`;
+                selectPersonas.appendChild(option);
+            }
+        });
+
+        // 2. Mostrar cantidad de personas si dicen que SÍ asisten
+        function togglePases() {
+            const asistencia = document.getElementById("select-asistencia").value;
+            const selectPersonas = document.getElementById("select-personas");
+            const contenedorNombres = document.getElementById("contenedor-nombres");
+            
+            if(asistencia === "Si") {
+                if(pasesAsignados > 1) {
+                    selectPersonas.style.display = "block";
+                    selectPersonas.required = true;
+                } else {
+                    // Si solo tiene 1 pase, se asume 1 y no se pregunta cuántos van
+                    selectPersonas.style.display = "none";
+                    selectPersonas.required = false;
+                    selectPersonas.value = "1";
+                }
+            } else {
+                selectPersonas.style.display = "none";
+                selectPersonas.required = false;
+                selectPersonas.value = ""; 
+                contenedorNombres.style.display = "none"; 
+                
+                // Borrar campos si cambian de opinión
+                for (let i = 2; i <= 5; i++) {
+                    let input = document.getElementById("persona_" + i);
+                    if(input) {
+                        input.required = false;
+                        input.value = "";
+                    }
+                }
+            }
+        }
+
+        // 3. Mostrar campos de texto para acompañantes (empieza a contar desde el 2)
+        function generarCamposNombres() {
+            const cantidad = parseInt(document.getElementById("select-personas").value);
+            const contenedor = document.getElementById("contenedor-nombres");
+            
+            if(cantidad > 1) {
+                contenedor.style.display = "block";
+            } else {
+                contenedor.style.display = "none";
+            }
+
+            for (let i = 2; i <= 5; i++) {
+                const inputElement = document.getElementById("persona_" + i);
+                if(inputElement) {
+                    if (i <= cantidad) {
+                        inputElement.style.display = "block";
+                        inputElement.required = true;
+                    } else {
+                        inputElement.style.display = "none";
+                        inputElement.required = false;
+                        inputElement.value = ""; 
+                    }
+                }
+            }
+        }
+
+        // Capturar el envío del formulario mediante AJAX a Google Sheets
+        const miFormulario = document.getElementById("form-boda");
+
+        if (miFormulario) {
+            miFormulario.addEventListener("submit", function(e) {
+                e.preventDefault(); // Evita que la página se recargue
+
+                const btnSubmit = document.getElementById("btn-enviar-submit");
+                btnSubmit.innerText = "ENVIANDO...";
+                btnSubmit.disabled = true;
+
+                const formData = new FormData(miFormulario);
+                
+                // TU ENLACE DE GOOGLE APPS SCRIPT:
+                const scriptURL = "https://script.google.com/macros/s/AKfycbyMCo9UUa2gS4HbuTjism19nufW74z1l3MaHACOsZqVKM3byeFF_1LpMsv41Tj9tz_k/exec";
+
+                fetch(scriptURL, {
+                    method: "POST",
+                    mode: "no-cors", // VITAL: Evita bloqueos de seguridad del navegador
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(formData).toString()
+                })
+                .then(() => {
+                    // Ocultar formulario y mostrar mensaje de agradecimiento
+                    miFormulario.style.display = "none";
+                    document.getElementById("texto-pases").style.display = "none";
+                    document.getElementById("mensaje-exito").style.display = "block";
+                })
+                .catch((error) => {
+                    alert("Ocurrió un error al enviar tu confirmación. Inténtalo de nuevo.");
+                    btnSubmit.innerText = "ENVIAR CONFIRMACIÓN";
+                    btnSubmit.disabled = false;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
