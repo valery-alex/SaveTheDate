@@ -281,6 +281,33 @@
             background-color: var(--terracota);
         }
 
+        /* --- FOOTER CODEBIT --- */
+        .footer-codebit {
+            background-color: var(--bg-crema); /* Mismo fondo de la página para que se fusione */
+            padding: 20px 20px 40px 20px; /* Mucho espacio abajo y arriba para que respire */
+            text-align: center;
+        }
+
+        .footer-codebit p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem; /* Texto pequeño y elegante */
+            color: var(--cafe-claro); /* Color suave para no robar atención */
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .footer-codebit a {
+            color: var(--terracota); /* Color llamativo de tu paleta */
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-codebit a:hover {
+            color: var(--borgona);
+            text-decoration: underline;
+        }
+
         /* --- ADAPTACIÓN PARA MÓVILES --- */
         @media (max-width: 600px) {
             /* Ajusta el tamaño de la tipografía principal */
@@ -401,6 +428,11 @@
                 <h3 class="nombres-script" style="font-size: 2.5rem; color: var(--mostaza); margin: 0 0 10px 0;">¡Gracias por confirmar!</h3>
                 <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin: 0;">Hemos guardado tu respuesta. ¡Nos vemos el 05 de diciembre!</p>
             </div>
+        </div>
+
+        <!-- FOOTER CODEBIT -->
+        <div class="footer-codebit">
+            <p>Desarrollado por <a href="https://franciscoj04.github.io/codebit/" target="_blank">CodeBit</a></p>
         </div>
     </div>
 
